@@ -9,7 +9,7 @@ define([
 
         attributes: function() {
             return _.extend(MenuView.prototype.attributes.call(this), {
-                "data-item-count": this.model.getAvailableChildModels().length
+                "data-item-count": this.model.getAvailableChildModels().length+1
             });
         },
 
@@ -18,10 +18,12 @@ define([
         },
 
         events: {
-            "click .carousel-menu-item-control": "onControlClick"
+            "click .carousel-menu-item-control": "onControlClick",
+            "click .numspothome": "onHome"
         },
 
         postRender: function() {
+
             var item = this.getNextIncompleteItem();
 
             this.listenTo(Adapt, {
@@ -29,6 +31,7 @@ define([
                 "menuView:ready": this.onReady
             });
 
+            this.setBackgroundImage();
             this.setUpItems();
             this.setItem(item.id, item.index);
         },
@@ -55,6 +58,23 @@ define([
             if (index > -1 && index < models.length) {
                 this.setItem(models[index].get("_id"), index);
             }
+            if ( $(event.currentTarget).hasClass("next")) {
+                if (index == models.length) {
+                    $(".carousel-menu").attr("data-item-index",models.length);
+                }
+            }
+        },
+
+        onHome: function() {
+            $(".carousel-menu").attr("data-item-index","0");
+            console.log("on home");
+        },
+
+        setBackgroundImage: function() {
+            var config = this.model.get("_carouselMenu");
+            var src = config && config._backgroundSrc;
+
+            if (src) this.$el.css("background-image", "url(" + src + ")");
         },
 
         setUpItems: function() {
@@ -80,7 +100,7 @@ define([
 
             if (index === -1) index = 0;
 
-            for (var i = index, j = models.length; i < j; i++) {
+            for (var i = index, j = parseInt(models.length+1); i < j; i++) {
                 var model = models[i];
 
                 if (!model.get("_isComplete")) return { id: model.get("_id"), index: i };
