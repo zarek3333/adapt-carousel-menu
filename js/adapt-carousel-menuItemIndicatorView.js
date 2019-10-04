@@ -9,7 +9,7 @@ define([
             var models = this.model.getParent().getAvailableChildModels();
 
             return _.extend(CarouselMenuItemView.prototype.attributes.call(this), {
-                "data-item-index": models.indexOf(this.model)
+                "data-item-index": models.indexOf(this.model)+1
             });
         },
 
@@ -27,6 +27,8 @@ define([
 
         onClick: function() {
             var index = this.$el.data("item-index");
+
+            console.log("index is this:" + index);
 
             Adapt.trigger("carouselMenu:setItem", this.model.get("_id"), index);
         }
