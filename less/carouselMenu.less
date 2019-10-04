@@ -35,8 +35,15 @@
     }
 }
 
-.carousel-menu {
+.menu.carousel-menu {
     position: relative;
+    background: url('assets/backgroundA.jpg');
+    webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .carousel-menu-item-container {
@@ -169,10 +176,19 @@
                 background-color: @menu-item-progress-fill-color;
             }
         }
+        [data-item-index="0"] {
+            & & .numspothome {
+                border-color: @menu-item-progress-fill-color;
+                cursor: default;
+            }
+            & & .carousel-menu-item-indicator-button-inner {
+                background-color: @menu-item-progress-fill-color;
+            }
+        }
     }
 }
 
-.carousel-menu-item-indicator-button {
+.carousel-menu-item-indicator-button, .numspothome {
     position: relative;
     width: 24px;
     height: 24px;
@@ -199,7 +215,7 @@
         width: 14px;
         border-radius: 50%;
     }
-    @{non-mobile} .carousel-menu-item-indicator-button:hover & {
+    @{non-mobile} .carousel-menu-item-indicator-button:hover, .numspothome:hover & {
         .transition-background-color;
         background-color: @menu-item-progress-fill-color;
     }
