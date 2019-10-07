@@ -32,6 +32,23 @@
         &.os-android #wrapper {
             position: fixed;
         }
+        .menu.carousel-menu {
+            height: calc(100vh - 64px);
+        }
+        .carousel-menu-item-inner {
+            max-width: 60%;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            margin-top: -5%;
+        }
+        .carousel-menu-item-body, .carousel-menu-item-duration {
+            text-align: left;
+        }
     }
 }
 
@@ -89,17 +106,30 @@
 }
 
 .carousel-menu-item-inner {
-    max-width: 900px;
     margin: 0 auto;
 }
 
 .carousel-menu-item-content {
     padding: @menu-block-padding-top @menu-block-padding-right @menu-block-padding-bottom @menu-block-padding-left;
+    border: 1px solid @quaternary-color;
+    background-color: fade(@tertiary-color, 95%);
+    color: @tertiary-color-inverted;
+}
+.carousel-menu-item:not(:first-child) .carousel-menu-item-content:after {
+    content: 'Click or tap View to start.';
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: @tertiary-color-inverted;
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-top: 5px;
 }
 
 .carousel-menu-item-title {
     .menu-title;
     margin-bottom: @menu-block-title-margin-bottom;
+    letter-spacing: -0.02em;
 }
 
 .carousel-menu-item-body,
@@ -108,12 +138,22 @@
 }
 
 .carousel-menu-item-button {
+    background-color: @item-color;
+    color: @item-text-color;
+    &:hover {
+        background-color: @item-text-color;
+        color: @item-color;
+    }
     .locked &,
     @{non-mobile} .locked &:hover {
         background-color: @disabled-color;
         color: @disabled-color-inverted;
         cursor: default;
     }
+}
+.visited .carousel-menu-item-button {
+    background-color: rgba(175,175,175,0.9);
+    color: @item-text-color;
 }
 
 .carousel-menu-item-control.icon {
