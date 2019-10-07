@@ -28,6 +28,12 @@ define([ "core/js/views/adaptView", "core/js/adapt" ], function(AdaptView, Adapt
             if (!this.model.get("_isLocked")) {
                 Adapt.navigateToElement(this.model.get("_id"));
             }
+            /* Below addes page number in for the menu */
+            var models = this.model.getParent().getAvailableChildModels();
+            var numofpgs = models.length;
+            var addmodels =parseInt(models.indexOf(this.model)+1);
+            $('.navpagenum').text( 'Page ' + addmodels + ' of ' + numofpgs );
+            $('.arianavpgnum').text( 'Page ' + addmodels + ' of ' + numofpgs ).attr('role','region').attr('tabindex','0').addClass('aria-label');
         },
 
         setBackgroundImage: function() {
