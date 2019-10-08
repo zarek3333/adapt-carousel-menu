@@ -34,6 +34,24 @@ define([
             this.setBackgroundImage();
             this.setUpItems();
             this.setItem(item.id, item.index);
+
+            // Triggers Page 1 when Accessibility button is pressed
+            if ($('.location-menu').hasClass('accessibility')) {
+                // Checks if you are on Main Menu or Sub Menu
+                if ($('.navigation-back-button').hasClass('display-none')) {
+                    window.setTimeout(function(){
+                        $( '.carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                    }, 250);
+                } else {
+                    window.setTimeout(function(){
+                        $( '.carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                        window.setTimeout(function(){
+                            $('head').prepend("<style>.accessibility .audio-controls .audio-inner button {display:none;}</style>");
+                            $( '.carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                        }, 250);
+                    }, 250);
+                }
+            }
         },
 
         setItem: function(id, index) {
