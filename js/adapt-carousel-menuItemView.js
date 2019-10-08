@@ -34,6 +34,10 @@ define([ "core/js/views/adaptView", "core/js/adapt" ], function(AdaptView, Adapt
             var addmodels =parseInt(models.indexOf(this.model)+1);
             $('.navpagenum').text( 'Page ' + addmodels + ' of ' + numofpgs );
             $('.arianavpgnum').text( 'Page ' + addmodels + ' of ' + numofpgs ).attr('role','region').attr('tabindex','0').addClass('aria-label');
+
+            //BELOW PULLS TITLE
+            var navtitle2 = $( '.carousel-menu-item[data-adapt-id="home"] .carousel-menu-item-title' ).text();
+            $( ".modulehead" ).html( navtitle2 );
         },
 
         setBackgroundImage: function() {
