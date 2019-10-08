@@ -9,7 +9,7 @@ define([
             var models = this.model.getParent().getAvailableChildModels();
 
             return _.extend(CarouselMenuItemView.prototype.attributes.call(this), {
-                "data-item-index": models.indexOf(this.model)+1
+                "data-item-index": parseInt(models.indexOf(this.model)+1)
             });
         },
 
