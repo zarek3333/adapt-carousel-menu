@@ -19,7 +19,10 @@ define([
 
         events: {
             "click .carousel-menu-item-control": "onControlClick",
-            "click .numspothome": "onHome"
+            "click .numspothome": "onHome",
+            "mouseover .numspothome": "homeOver",
+            "mouseout .numspothome": "homeOut",
+            "click .tooltips6 .skipme": "toolTip"
         },
 
         postRender: function() {
@@ -52,6 +55,10 @@ define([
                     }, 250);
                 }
             }
+
+            window.setTimeout(function(){
+                $(".tooltips6").remove(); 
+            }, 9000);
         },
 
         setItem: function(id, index) {
@@ -64,6 +71,17 @@ define([
             if (Adapt.device.screenSize !== "large") this.scroll();
 
             this.$(".carousel-menu-item-container").removeClass("no-transition");
+
+            if ( $(".visited.carousel-menu-item-indicator .carousel-menu-item-indicator-button-inner div").hasClass("page-level-progress-menu-item") ) {
+                $( ".carousel-menu-item-indicator .page-level-progress-menu-item-indicator-bar" ).each(function( percent ) {
+                    $('.visited.carousel-menu-item-indicator').addClass('pgpercent');
+                    //console.log( parseInt(percent+1) + ": " + $( this ).css("width") );
+                    $( ".pgpercent" ).each(function( pgcount ) {
+                        $( this ).addClass('pgcount' + parseInt(pgcount+1));
+                        $('.carousel-menu-item-indicator-container .pgpercent.pgcount' + parseInt(pgcount+1) + ' .carousel-menu-item-indicator-button-inner').css('width', $( '.pgcount' + parseInt(pgcount+1) + ' .page-level-progress-menu-item-indicator-bar' ).css("width"));
+                    });
+                });
+            }
         },
 
         onControlClick: function(event) {
@@ -85,7 +103,18 @@ define([
 
         onHome: function() {
             $(".carousel-menu").attr("data-item-index","0");
-            console.log("on home");
+        },
+
+        homeOver: function() {
+            $('.carousel-menu-item[data-adapt-id="home"] .menu-tooltip').css({'opacity':'1','-webkit-animation-name': 'fadeInUp','animation-name': 'fadeInUp'});
+        },
+
+        homeOut: function() {
+            $('.carousel-menu-item[data-adapt-id="home"] .menu-tooltip').css({'opacity':'0','-webkit-animation-name': 'none','animation-name': 'none'});
+        },
+
+        toolTip: function() {
+            $(".tooltips6").css({'opacity':'0','display': 'none','z-index': '-1'});
         },
 
         setBackgroundImage: function() {
@@ -118,13 +147,13 @@ define([
 
             if (index === -1) index = 0;
 
-            for (var i = index, j = parseInt(models.length+1); i < j; i++) {
+            for (var i = index, j = models; i < j; i++) {
                 var model = models[i];
 
                 if (!model.get("_isComplete")) return { id: model.get("_id"), index: i };
             }
 
-            return { id: id, index: index };
+            return { id: id, index: parseInt(index+1)};
         },
 
         scroll: function() {
