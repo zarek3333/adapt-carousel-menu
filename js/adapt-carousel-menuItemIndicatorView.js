@@ -20,7 +20,9 @@ define([
         },
 
         events: {
-            "click .carousel-menu-item-indicator-button": "onClick"
+            "click .carousel-menu-item-indicator-button": "onClick",
+            "mouseover .carousel-menu-item-indicator-button": "onOver",
+            "mouseout .carousel-menu-item-indicator-button": "onOut"
         },
 
         postRender: function() {},
@@ -28,9 +30,17 @@ define([
         onClick: function() {
             var index = this.$el.data("item-index");
 
-            console.log("index is this:" + index);
-
             Adapt.trigger("carouselMenu:setItem", this.model.get("_id"), index);
+        },
+
+        onOver: function() {
+            var index = this.$el.data("item-index");
+            $('.carousel-menu-item[data-item-index="' + index + '"] .menu-tooltip').css({'opacity':'1','-webkit-animation-name': 'fadeInUp','animation-name': 'fadeInUp'});
+        },
+
+        onOut: function() {
+            var index = this.$el.data("item-index");
+            $('.carousel-menu-item[data-item-index="' + index + '"] .menu-tooltip').css({'opacity':'0','-webkit-animation-name': 'none','animation-name': 'none'});
         }
 
     }, { template: "carouselMenuItemIndicator" });
