@@ -160,7 +160,7 @@ define([
             var $item = this.$(".carousel-menu-item")
                 .filter("[data-adapt-id='" + this.model.get("_coverId") + "']");
 
-            Adapt.scrollTo($item);
+            if (Adapt.device.screenSize == "large") Adapt.scrollTo($item);
         },
 
     }, { template: "carouselMenu" });
