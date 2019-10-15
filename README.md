@@ -34,7 +34,7 @@ This is a Carousel type menu which is different from the box styled menu when yo
 To add a custom default text description for the menu item buttons and remove the click or tap verbage. Please use the following coding in the Custom CSS/Less Project settings.
 
 <p><strong>Code example</strong></p>
-<p><strong>.menu-item-button:after {<br/>&nbsp;&nbsp;&nbsp;content: 'Cliquez ou tapez sur Voir pour commencer.';</br>}</strong></p>
+<p><strong>.carousel-menu-item:not(:first-child) .carousel-menu-item-content:after {<br/>&nbsp;&nbsp;&nbsp;content: 'Cliquez ou tapez sur Voir pour commencer.';</br>}</strong></p>
 
 <img src="https://raw.githubusercontent.com/mike-st/adapt-carousel-menu/master/carousel-custom-language-image.jpg" alt="Modifing the click or tap text for the menu item buttons" name="menutext" width="768" height="389" border="10" />
 
