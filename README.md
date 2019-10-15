@@ -29,16 +29,6 @@ This is a Carousel type menu which is different from the box styled menu when yo
 >**src** (string): File name (including path) of the image. Path should be relative to the *src* folder (e.g., *"course/en/images/t05.jpg"*).  
        
 **linkText** (string): This text is displayed on the menu item's link/button.  
-       
-<div float align=right><a href="#top">Back to Top</a></div>  
-
-### Adding a Custom Carousel Header Menu Image
-To add a custom carousel header menu image please use the following coding in the Custom CSS/Less Project settings or add an image in your theme called BackgroundA.jpg.
-
-<p><strong>Code example</strong></p>
-<p><strong>.menu .menu-header { <br/>&nbsp;&nbsp;&nbsp;background: url('https://www.adaptlearning.org/wp-content/uploads/2015/12/header_image.jpg') !important;<br/>}</strong></p>
-
-<img src="https://raw.githubusercontent.com/mike-st/adapt-carousel-menu/master/carousel-custom-header-image.jpg" alt="Custom Carousel Header Menu Image" name="menuimage" width="768" height="389" border="10" />
 
 ### Modifing the default text description for the Menu Item Buttons (eg. click or tap text)
 To add a custom default text description for the menu item buttons and remove the click or tap verbage. Please use the following coding in the Custom CSS/Less Project settings.
@@ -49,35 +39,16 @@ To add a custom default text description for the menu item buttons and remove th
 <img src="https://raw.githubusercontent.com/mike-st/adapt-carousel-menu/master/carousel-custom-language-image.jpg" alt="Modifing the click or tap text for the menu item buttons" name="menutext" width="768" height="389" border="10" />
 
 ### Accessibility
-Several menu-related elements are assigned a label using the [aria-label](https://github.com/adaptlearning/adapt_framework/wiki/Aria-Labels) attribute: **ariaRegion**, **menuItem**, and **menuEnd**. These labels are not visible elements. They are utilized by assistive technology such as screen readers. Should the label texts need to be customised, they can be found within the **globals** object in [*properties.schema*](https://github.com/mike-st/adapt-carousel-menu/blob/master/properties.schema).   
+Not supported in this menu. I suggest leading the user right into the first page when accessibility is turned on.
 
 <div float align=right><a href="#top">Back to Top</a></div>
 
 ## Limitations
-Unfortunately Submenu sections won't work with this menu system. For use with parent level only. If you wish to use submenu's try my other menu called ScrollingTile Menu...
-
-## FRAMEWORK VERSION 4.0+ FIXES
-Unfortunately Framework 4 at this time, cosmetically breaks the look of the menu. Below are fixes to get it working with that version of framework.
-
-1.) Uninstall the current adapt-contrib-pageLevelProgress and install my modified version of it found at: [github.com/mike-st/adapt-contrib-pageLevelProgress](https://github.com/mike-st/adapt-contrib-pageLevelProgress).
-
-2.) Add the following coding in the Custom CSS/Less Project settings:
-
-<p><strong>.menu .menu-container-inner {
-<br/>&nbsp;&nbsp;&nbsp;padding: 30px 0px 0;
-</br>}</strong></p>
-<p><strong>.menu .page-level-progress-menu-item {
-<br/>&nbsp;&nbsp;&nbsp;padding: 0px 0px 0;
-<br/>&nbsp;&nbsp;&nbsp;margin: -26px -24px 0;
-</br>}</strong></p>
-<p><strong>.menu-header-inner {
-<br/>&nbsp;&nbsp;&nbsp;width: 80vw;
-<br/>&nbsp;&nbsp;&nbsp;text-align: center;
-<br/>&nbsp;&nbsp;&nbsp;margin-left: 10vw;
-</br>}</strong></p>
-
+This menu is not very accessible so try using the ScrollingTile Menu instead if you need it more accessible or cut out the menu in accessible mode to make it easier on the user...
 
 [ScrollingTile Menu](https://github.com/mike-st/adapt-tilesMenu)
+
+<div float align=right><a href="#top">Back to Top</a></div>  
 
 ----------------------------
 **Version number:**  2.0.5   
