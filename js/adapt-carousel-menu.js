@@ -58,7 +58,7 @@ define([
 
             window.setTimeout(function(){
                 $(".tooltips6").remove(); 
-            }, 9000);
+            }, 15000);
         },
 
         setItem: function(id, index) {
