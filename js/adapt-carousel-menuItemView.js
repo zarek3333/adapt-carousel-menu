@@ -26,7 +26,8 @@ define([ "core/js/views/adaptView", "core/js/adapt" ], function(AdaptView, Adapt
 
         onClick: function() {
             if (!this.model.get("_isLocked")) {
-                Adapt.navigateToElement(this.model.get("_id"));
+                //Adapt.navigateToElement(this.model.get("_id"));
+                Backbone.history.navigate('#/id/' + this.model.get('_id'), {trigger: true});
             }
             /* Below addes page number in for the menu */
             var models = this.model.getParent().getAvailableChildModels();
