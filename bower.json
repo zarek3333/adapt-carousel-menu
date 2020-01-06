@@ -1,7 +1,7 @@
 {
 	"name": "adapt-carousel-menu",
-	"version": "2.1.4",
-	"framework": ">=2.2",
+	"version": "2.1.5",
+	"framework": ">=3.3",
 	"displayName": "Carousel Menu",
 	"menu": "carouselMenu",
 	"targetAttribute": "_carouselMenu",
