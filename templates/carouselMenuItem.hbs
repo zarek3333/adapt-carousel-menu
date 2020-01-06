@@ -9,6 +9,6 @@
         {{#if duration}}
         <div class="carousel-menu-item-duration">{{{_globals._menu._carouselMenu.durationLabel}}}{{{duration}}}</div>
         {{/if}}
-        <button class="carousel-menu-item-button">{{{linkText}}}</button>
+        <button class="carousel-menu-item-button{{#if _isVisited}} is-visited{{/if}}{{#if _isLocked}} is-locked{{/if}}"{{#if _isLocked}} disabled="disabled"{{/if}}>{{{linkText}}}</button>
     </div>
 </div>
