@@ -12,13 +12,16 @@
 }
 
 .location-menu {
+    overflow-y: auto;
     &.os-ios #a11y-focusguard,
     &.os-android #a11y-focusguard {
         display: none;
     }
     @media @device-large {
+        overflow-y: hidden;
         &.os-ios,
         &.os-android {
+            overflow-y: auto;
             &,
             body,
             .carousel-menu,
@@ -26,14 +29,14 @@
                 height: 100%;
             }
             #wrapper {
-                height: calc(100% ~"-" @navigation-padding * 2 + @icon-size);
+                height: calc(100% ~"-" 48px * 2 + @icon-size);
             }
         }
         &.os-android #wrapper {
             position: fixed;
         }
         .menu.carousel-menu {
-            height: calc(100vh - 64px);
+            height: calc(100vh - 56px);
         }
         .carousel-menu-item-inner {
             max-width: 60%;
@@ -42,24 +45,29 @@
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
-            height: 100%;
+            height: 100vh;
             margin-top: -5%;
         }
-        .carousel-menu-item-body, .carousel-menu-item-duration {
+        .carousel-menu-item-body {
             text-align: left;
+        }
+        .carousel-menu-item-duration {
+            color: @item-color;
+            text-align: right;
         }
     }
 }
 
 .menu.carousel-menu {
     position: relative;
-    background: url('assets/backgroundA.jpg');
+    background: url('course/en/images/backgroundA.jpg');
     webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 .carousel-menu-item-container {
@@ -90,16 +98,16 @@
 
 .carousel-menu-item:not(.carousel-menu-item-indicator) {
     width: 100%;
-    background-color: @menu-item-color;
+    background-color: @item-color;
     background-position: center;
     background-size: cover;
-    color: @menu-item-text-color;
+    color: @item-color-inverted;
     &:nth-child(even) {
-        background-color: spin(@menu-item-color, -20);
+        background-color: @item-color;
     }
     @media @device-large {
         @{non-mobile} & {
-            min-height: calc(100vh ~"-" @navigation-padding * 2 + @icon-size);
+            min-height: calc(100vh ~"-" 48px * 2 + @icon-size);
         }
     }
 }
@@ -109,17 +117,17 @@
 }
 
 .carousel-menu-item-content {
-    padding: @menu-block-padding-top @menu-block-padding-right @menu-block-padding-bottom @menu-block-padding-left;
-    border: 1px solid @quaternary-color;
-    background-color: fade(@tertiary-color, 95%);
-    color: @tertiary-color-inverted;
+    padding: 20px 20px 20px 20px;
+    border: 1px solid @btn-color;
+    background-color: rgba(255,255,255,0.95);
+    color: @background;
 }
 .carousel-menu-item:not(:first-child) .carousel-menu-item-content:after {
     content: 'Click or tap View to start.';
     display: block;
     font-size: 15px;
     font-weight: 700;
-    color: @tertiary-color-inverted;
+    color: @background;
     font-style: italic;
     letter-spacing: 1px;
     margin-top: 5px;
@@ -127,38 +135,42 @@
 
 .carousel-menu-item-title {
     .menu-title;
-    margin-bottom: @menu-block-title-margin-bottom;
+    margin-bottom: 20px;
     letter-spacing: -0.02em;
 }
 
 .carousel-menu-item-body,
 .carousel-menu-item-duration {
-    margin-bottom: @menu-block-body-margin-bottom;
+    margin-bottom: 20px;
 }
 
 .carousel-menu-item-button {
     background-color: @item-color;
-    color: @item-text-color;
+    color: @item-color-inverted;
+    padding: 14px 24px 14px 24px;
     &:hover {
-        background-color: @item-text-color;
-        color: @item-color;
+        background-color: @item-color-hover;
+        color: @item-color-inverted;
     }
     .locked &,
     @{non-mobile} .locked &:hover {
-        background-color: @disabled-color;
-        color: @disabled-color-inverted;
+        background-color: @disabled;
+        color: @disabled-inverted;
         cursor: default;
     }
 }
 .visited .carousel-menu-item-button {
     background-color: rgba(175,175,175,0.9);
-    color: @item-text-color;
+    color: @item-color-inverted;
 }
 
 .carousel-menu-item-control.icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 30px;
+    background-color: rgba(255,255,255,0.9);
     &.back {
         left: 0;
         [data-item-index="0"] & {
@@ -169,7 +181,11 @@
         right: 0;
     }
     @{non-mobile} &:hover {
-        .transition-color;
+        -webkit-transition: color 0.25s ease-in;
+		-moz-transition: color 0.25s ease-in;
+		-ms-transition: color 0.25s ease-in;
+		transition: color 0.25s ease-in;
+		background-color: rgba(255,255,255,0.5);
     }
     @media (max-width: @device-width-medium) {
         display: none;
@@ -193,9 +209,9 @@
     position: absolute;
     text-align: center;
     bottom: 0px;
-    width: calc(100vw - 120px);
+    width: 100vw;
     background-color: #ffffff;
-    padding: 10px 650px 10px 55px;
+    padding: 10px 55px 10px 55px;
     counter-reset: file;
     @media (max-width: @device-width-medium) {
         display: none;
@@ -229,16 +245,13 @@
     & when (@i < @item-max-count) {
         [data-item-index="@{i}"] {
             & & .carousel-menu-item-indicator-button {
-                border-color: @menu-item-progress-fill-color;
                 cursor: default;
-            }
-            & & .carousel-menu-item-indicator-button-inner {
-                background-color: @menu-item-progress-fill-color;
+                background-color: rgba(50,50,50,0.6) !important;
             }
         }
         [data-item-index="0"] {
-            & & .carousel-menu-item-indicator-button-inner {
-                background-color: @menu-item-progress-fill-color;
+            & & .numspothome {
+                background-color: rgba(50,50,50,0.6) !important;
             }
         }
     }
@@ -247,15 +260,15 @@
 .numspothome {
     width: 44px;
     height: 44px;
-    border: 2px solid transparent;
+    border: none;
     background-color: rgba(50,50,50,0.2) !important;
     cursor: pointer;
-    color: @item-text-color;
+    color: @item-color-inverted;
     border-radius: 44px;
     text-align: center;
     vertical-align: middle;
     line-height: 44px;
-    font-family: @font-family;
+    font-family: @btn-family;
     font-weight: bold;
     font-size: 20px;
     text-indent: 2px;
@@ -267,13 +280,13 @@
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
     &:before {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         line-height: 28px;
-        background-color: @tertiary-color;
+        background-color: @background-inverted;
         color: @item-color;
         border: 2px solid @white;
-        border-radius: 28px;
+        border-radius: 32px;
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
         -o-transform: rotate(90deg);
@@ -285,7 +298,7 @@
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
-        margin: 4px;
+        margin: 6px;
         z-index: 500;
         content: "\e616";
         font-family: 'vanilla' !important;
@@ -298,20 +311,27 @@
         -moz-osx-font-smoothing: grayscale;
     }
     @{non-mobile} &:hover {
-        .transition-border-color;
+        -webkit-transition: border-color 0.25s ease-in;
+		-moz-transition: border-color 0.25s ease-in;
+		-ms-transition: border-color 0.25s ease-in;
+		transition: border-color 0.25s ease-in;
         border-color: transparent;
         &:before {
             background-color: rgba(0,0,0,0.5);
-            color: white;
+            color: @white;
         }
     }
     @{non-mobile} &:focus {
-        .transition-border-color;
+        -webkit-transition: border-color 0.25s ease-in;
+		-moz-transition: border-color 0.25s ease-in;
+		-ms-transition: border-color 0.25s ease-in;
+		transition: border-color 0.25s ease-in;
         border-color: transparent;
         outline: none;
         &:before {
-            background-color: @button-color;
-            color: white;
+            color: @item-color;
+        	background-color: @background-inverted;
+        	border: 2px solid @item-color;
         }
     }
 }
@@ -320,14 +340,14 @@
     height: 44px;
     position: relative;
     counter-increment: file;
-    border: 2px solid transparent;
+    border: none;
     background-color: rgba(50,50,50,0.2) !important;
-    color: @item-text-color;
+    color: @item-color-inverted;
     border-radius: 44px;
     text-align: center;
     vertical-align: middle;
     line-height: 44px;
-    font-family: @font-family;
+    font-family: @btn-family;
     font-weight: bold;
     font-size: 20px;
     text-indent: 2px;
@@ -338,14 +358,14 @@
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
     &:before {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         line-height: 28px;
         content: counter(file);
-        color: @tertiary-color;
+        color: @background-inverted;
         background-color: @item-color;
         border: 2px solid @white;
-        border-radius: 28px;
+        border-radius: 32px;
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
         -o-transform: rotate(90deg);
@@ -357,27 +377,35 @@
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
-        margin: 4px;
+        margin: 6px;
         z-index: 500;
     }
     @{non-mobile} &:hover {
-        .transition-border-color;
+        -webkit-transition: border-color 0.25s ease-in;
+		-moz-transition: border-color 0.25s ease-in;
+		-ms-transition: border-color 0.25s ease-in;
+		transition: border-color 0.25s ease-in;
         border-color: transparent;
         &:before {
             background-color: rgba(0,0,0,0.5);
-            color: white;
+            color: @white;
         }
     }
     @{non-mobile} &:focus {
-        .transition-border-color;
+        -webkit-transition: border-color 0.25s ease-in;
+		-moz-transition: border-color 0.25s ease-in;
+		-ms-transition: border-color 0.25s ease-in;
+		transition: border-color 0.25s ease-in;
         border-color: transparent;
         outline: none;
         &:before {
-            background-color: @button-color;
-            color: white;
+            color: @item-color;
+        	background-color: @background-inverted;
+        	border: 2px solid @item-color;
         }
     }
 }
+
 .locked .carousel-menu-item-indicator-button {
     &:before {
         content: '\e631';
@@ -395,7 +423,7 @@
 .menu-tooltip{
     background-color: @black;
     border-radius: 5px;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
     margin-top: -56px;
     -webkit-box-shadow: 0 3px 10px 0 rgba(0,0,0,0.5);
     -moz-box-shadow: 0 3px 10px 0 rgba(0,0,0,0.5);
@@ -414,6 +442,7 @@
     width: 150px;
     z-index: 999999;
     font-weight: bold;
+    font-size: 14px;
     position: absolute;
     &:after {
         border-left: 20px solid transparent;
@@ -429,12 +458,13 @@
     }
 }
 /* IE11 fix for menutooltip */
-*::-ms-backdrop, .menu-tooltip {
+*::-ms-backdrop, html:not(.chrome) .menu-tooltip {
     margin-top: -120px;
-    margin-left: -65px;
+    margin-left: -52px !important;
     font-size: 13px;
     letter-spacing: 0px;
 }
+
 
 @keyframes fadeInUp {
   from {
@@ -457,11 +487,11 @@
     flex-wrap: wrap;
     text-align: center;
     max-width: 40px;
-    background-color: @menu-item-progress-color;
+    background-color: @item-color;
     .visited & {
         width: 22px;
         height: 44px;
-        background-color: @button-color !important;
+        background-color: @item-color !important;
         position: absolute !important;
         left: 0px;
         top: 0px;
@@ -471,8 +501,11 @@
         width: 44px;
     }
     @{non-mobile} .carousel-menu-item-indicator-button:hover, .numspothome:hover & {
-        .transition-background-color;
-        background-color: @menu-item-progress-fill-color;
+        -webkit-transition: background-color 0.25s ease-in;
+		-moz-transition: background-color 0.25s ease-in;
+		-ms-transition: background-color 0.25s ease-in;
+		transition: background-color 0.25s ease-in;
+        background-color: @progress;
     }
 }
 
@@ -493,9 +526,9 @@
     line-height: 18px;
     text-align: center;
     border-radius: 0px;
-    opacity: 0;
+    opacity: 1;
     z-index: 600;
-    padding: 20px;
+    padding: 0px 20px;
     border: 1px solid #ffffff;
     display: flex;
     justify-content: flex-end;
@@ -518,15 +551,16 @@
       font-family: 'open_sans_Bold',Helvetica,Arial,sans-serif !important;
       font-size: 100%;
       letter-spacing: 0px;
+      margin-bottom: 0px;
         &:before {
             content: 'Course Menu: ';
-            color: white;
+            color: @white;
             line-height: 18px;
             font-weight: bold !important;
         }
         &:after {
             content: 'The course menu displays all the different course pages. These pages are represented by numbered circles at the bottom of the page. As you complete each page, the outer ring of the circle fills.';
-            color: white;
+            color: @white;
             line-height: 18px;
             font-weight: normal !important;
             display: block;
@@ -548,6 +582,18 @@
 .tooltips6 { z-index: 500\9 ; }
 _:-ms-lang(x), _:-webkit-full-screen, .tooltips6 { z-index: 511; }
 
+@media all and (max-height:740px){
+	@{non-mobile} .location-menu .carousel-menu-item-inner {max-width: 90%;}
+}
+
 @media all and (max-width:@device-width-medium){
     .tooltips6 {display: none !important;}
+    .carousel-menu-item-duration, .carousel-menu-item-button, .carousel-menu-item:not(:first-child) .carousel-menu-item-content:after {
+	    text-align: center !important;
+	    display: inline-flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-wrap: wrap;
+	    width: 100%;
+	}
 }

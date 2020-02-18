@@ -1,11 +1,11 @@
 {
 	"name": "adapt-carousel-menu",
-	"version": "2.1.5",
-	"framework": ">=3.3",
+	"version": "5.0.0",
+  	"framework": ">=5",
 	"displayName": "Carousel Menu",
 	"menu": "carouselMenu",
 	"targetAttribute": "_carouselMenu",
-	"description": "Carousel Styled Menu",
+	"description": "Carousel Styled Menu. For framework 5+",
 	"main": "/js/adapt-carousel-menu.js",
 	"keywords": [
 		"adapt-plugin",
