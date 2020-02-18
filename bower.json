@@ -5,7 +5,7 @@
 	"displayName": "Carousel Menu",
 	"menu": "carouselMenu",
 	"targetAttribute": "_carouselMenu",
-	"description": "Carousel Styled Menu. For framework 5+",
+	"description": "Carousel Styled Menu. Updated for framework 5+",
 	"main": "/js/adapt-carousel-menu.js",
 	"keywords": [
 		"adapt-plugin",
