@@ -37,6 +37,22 @@ define([
             this.setBackgroundImage();
             this.setUpItems();
             this.setItem(item.id, item.index);
+            
+            // Checks if you are on Main Menu or Sub Menu
+            if ($('.navigation-back-button').hasClass('display-none')) {
+                //Do Nothing on Main Menu
+
+                //BELOW PULLS TITLE
+                var navtitle2 = $( '.carousel-menu-item[data-adapt-id="home"] .carousel-menu-item-title' ).text();
+                Adapt.offlineStorage.set('mycourseTitle', navtitle2);
+                var courseholder = Adapt.offlineStorage.get("mycourseTitle");
+            } else {
+                $('.location-menu .carousel-menu').addClass('submenu-carousel');
+                //BELOW PULLS TITLE
+                var navtitle2 = $( '.carousel-menu-item[data-adapt-id="home"] .carousel-menu-item-title' ).text();
+                Adapt.offlineStorage.set('mycourseTitle', navtitle2);
+                var courseholder = Adapt.offlineStorage.get("mycourseTitle");
+            }
 
             // Triggers Page 1 when Accessibility button is pressed
             if ($('.location-menu').hasClass('accessibility')) {
