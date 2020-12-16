@@ -51,7 +51,7 @@ define([ "core/js/views/adaptView", "core/js/adapt" ], function(AdaptView, Adapt
         isVisited: function() {
             if (this.model.get("_isVisited")) return true;
 
-            var components = this.model.findDescendantModels("components");
+            var components = this.model.findDescendantModels("component");
 
             return _.find(components, function(component) {
                 return component.get("_isComplete") && component.get("_isAvailable") &&
