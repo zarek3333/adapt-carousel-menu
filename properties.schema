@@ -29,6 +29,13 @@
                   "title": "Menu Home Page Background source",
                   "inputType": "Asset:image",
                   "help": "Choose the home page background graphic"
+                },
+                "_gotoPageone": {
+                  "type": "boolean",
+                  "default": false,
+                  "title": "Check on so that menu won't launch at Page 1.",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": []
                 }
               }
             }
