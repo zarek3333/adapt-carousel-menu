@@ -22,7 +22,10 @@ define([
             "click .numspothome": "onHome",
             "mouseover .numspothome": "homeOver",
             "mouseout .numspothome": "homeOut",
-            "click .tooltips6 .skipme": "toolTip"
+            "click .tooltips6 .skipme": "toolTip",
+            'mousemove .firsttileview .carousel-menu-item' : 'firstPGlaunch',
+            "mousemove .carousel-menu-item" : "accessibilityOn",
+            "keyup *:focus" : "accessibilityOn"
         },
 
         postRender: function() {
@@ -75,6 +78,16 @@ define([
             window.setTimeout(function(){
                 $(".tooltips6").remove(); 
             }, 15000);
+
+            // Triggers Page 1 when Accessibility button is pressed
+            var config = this.model.get("_carouselMenu");
+            var launchPGone = config && config._gotoPageone;
+
+            if (launchPGone == true) {
+                console.log("CAROUSEL MENU PAGE 1 LAUNCH IS OFF.");
+            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
+                this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo); 
+            }
         },
 
         setItem: function(id, index) {
@@ -178,6 +191,38 @@ define([
 
             if (Adapt.device.screenSize == "large") Adapt.scrollTo($item);
         },
+
+        firstPGlaunch: function() {
+            // Checks if you are on Main Menu or Sub Menu
+            if ($('.nav__back-btn').hasClass('u-display-none')) {
+                $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+            } else {
+                //Do Nothing on SUB Menu
+                $('.carousel-menu-item-container').removeClass('firsttileview');
+            }
+        },
+
+        navigateTo: function() {
+            if( $('.navpagenum:empty').length ) {
+                window.setTimeout(function(){
+                    console.log("1st view of CAROUSEL MENU.");
+                    $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                }, 555);
+            } else {
+                $('.carousel-menu-item-container').removeClass('firsttileview');
+                console.log("CAROUSEL MENU has been viewed before.");
+            } 
+        },
+
+        accessibilityOn: function(e) {
+            if ($('.location-menu').hasClass('accessibility')) {
+                console.log("CAROUSEL MENU Accessibility On");
+                $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+            } else {
+                //DO NOTHING
+            }
+            
+        }
 
     }, { template: "carouselMenu" });
 
