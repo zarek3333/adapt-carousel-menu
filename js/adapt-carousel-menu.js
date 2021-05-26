@@ -86,7 +86,7 @@ define([
             if (launchPGone == true) {
                 console.log("CAROUSEL MENU PAGE 1 LAUNCH IS OFF.");
             } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
-                this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo); 
+                this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo);
             }
         },
 
@@ -193,25 +193,33 @@ define([
         },
 
         firstPGlaunch: function() {
-            // Checks if you are on Main Menu or Sub Menu
-            if ($('.nav__back-btn').hasClass('u-display-none')) {
-                $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+            if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
+                // Checks if you are on Main Menu or Sub Menu
+                if ($('.nav__back-btn').hasClass('u-display-none')) {
+                    $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                } else {
+                    //Do Nothing on SUB Menu
+                    $('.carousel-menu-item-container').removeClass('firsttileview');
+                }
             } else {
-                //Do Nothing on SUB Menu
-                $('.carousel-menu-item-container').removeClass('firsttileview');
-            }
+                //Do nothing
+            } 
         },
 
         navigateTo: function() {
-            if( $('.navpagenum:empty').length ) {
-                window.setTimeout(function(){
-                    console.log("1st view of CAROUSEL MENU.");
-                    $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
-                }, 555);
+            if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
+                if( $('.navpagenum:empty').length ) {
+                    window.setTimeout(function(){
+                        console.log("1st view of CAROUSEL MENU.");
+                        $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
+                    }, 555);
+                } else {
+                    $('.carousel-menu-item-container').removeClass('firsttileview');
+                    console.log("CAROUSEL MENU has been viewed before.");
+                }
             } else {
-                $('.carousel-menu-item-container').removeClass('firsttileview');
-                console.log("CAROUSEL MENU has been viewed before.");
-            } 
+                //Do nothing
+            }  
         },
 
         accessibilityOn: function(e) {
