@@ -8,6 +8,9 @@
 				{{#if body}}
 				<div class="carousel-menu-item-body">{{{compile body}}}</div>
 				{{/if}}
+				{{#if _carouselMenu._media._source}}
+				<button class="carousel-course-intro carousel-menu-item-button">{{_carouselMenu._courseIntro}}</button>
+				{{/if}}
 		    </div>
 		</div>
 	</div>

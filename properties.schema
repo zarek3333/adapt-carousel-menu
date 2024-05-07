@@ -36,6 +36,168 @@
                   "title": "Check on so that menu won't launch at Page 1.",
                   "inputType": {"type": "Boolean", "options": [true, false]},
                   "validators": []
+                },
+                "_courseIntro": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Course Intro",
+                  "title": "Button Text for Launching Video",
+                  "inputType": "Text",
+                  "validators": [],
+                  "translatable": true
+                },
+                "_media": {
+                  "type":"object",
+                  "required":true,
+                  "title": "Intro Slide Media settings",
+                  "properties":{
+                    "_source": {
+                      "type":"string",
+                      "required":true,
+                      "default": "",
+                      "title": "Source URL (DON'T INCLUDE HTTP:// OR HTTPS://)",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "The 'embed' URL of the Azure video you want to be displayed (DON'T INCLUDE HTTP:// OR HTTPS://)"
+                    },
+                    "_poster": {
+                        "type": "string",
+                        "required": false,
+                        "default": "",
+                        "title": "Poster Image (1260 x 709px)",
+                        "inputType": "Asset:image",
+                        "validators": ["required"],
+                        "help": "This is where the poster image path is placed."
+                    },
+                    "_captions": {
+                      "type":"string",
+                      "required":false,
+                      "default": "",
+                      "title": "Closed Captions or Subtitle URL example: ms01.streaming.mediaservices.windows.net/abc123-123abc-wrds456/MP1.vtt",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "The 'embed' closed captions or subtitle URL including the vtt file for the Azure video you want to be displayed (DON'T INCLUDE HTTP:// OR HTTPS://)"
+                    },
+                    "_captiononauto": {
+                      "type":"boolean",
+                      "required":false,
+                      "default": false,
+                      "title": "Turn captions/subtitles off by default",
+                      "inputType": {"type": "Boolean", "options": [true, false]},
+                      "validators": [],
+                      "help": "This sets the video to load with captions/subtitles off by default."
+                    },
+                    "_srclang": {
+                      "type": "string",
+                      "required": false,
+                      "enum": ["en", "fr", "es", "it"],
+                      "inputType": {"type": "Select", "options": ["en", "fr", "es", "it"]},
+                      "title": "Select Source of Closed Captions or Subtitle Language",
+                      "default": "en",
+                      "validators": [],
+                      "help": "Choose the sourse for the closed captions or subtitles language"
+                    },
+                    "_caplabel": {
+                      "type": "string",
+                      "required": false,
+                      "enum": ["english", "french", "spanish", "italian"],
+                      "inputType": {"type": "Select", "options": ["english", "french", "spanish", "italian"]},
+                      "title": "Select Closed Captions or Subtitle Language",
+                      "default": "english",
+                      "validators": [],
+                      "help": "Choose the language for you closed captions or subtitles"
+                    },
+                    "_capkind": {
+                      "type": "string",
+                      "required": false,
+                      "enum": ["captions", "subtitles"],
+                      "inputType": {"type": "Select", "options": ["captions", "subtitles"]},
+                      "title": "Closed Captions or Subtitles?",
+                      "default": "captions",
+                      "validators": [],
+                      "help": "Choose the kind of file closed captions or subtitles"
+                    },
+                    "_controls": {
+                      "type":"boolean",
+                      "required":false,
+                      "default": true,
+                      "title": "Show Controls",
+                      "inputType": {"type": "Boolean", "options": [true, false]},
+                      "validators": [],
+                      "help": "Do you wish to show controls or not."
+                    },
+                    "_scrubber": {
+                      "type": "string",
+                      "required": false,
+                      "enum": ["scrubber", "no-scrubber"],
+                      "inputType": {"type": "Select", "options": ["scrubber", "no-scrubber"]},
+                      "title": "Enable Video Scrubber",
+                      "default": "scrubber",
+                      "validators": [],
+                      "help": "Choose to show the video scrubber or not."
+                    },
+                    "_setFullscreen": {
+                      "type":"boolean",
+                      "required":false,
+                      "default": true,
+                      "title": "Show Fullscreen Button",
+                      "inputType": {"type": "Boolean", "options": [true, false]},
+                      "validators": [],
+                      "help": "Do you wish to show the fullscreen button or not."
+                    },
+                    "_autoplay": {
+                      "type":"boolean",
+                      "required":false,
+                      "default": false,
+                      "title": "Autoplay",
+                      "inputType": {"type": "Boolean", "options": [true, false]},
+                      "validators": [],
+                      "help": "Specifies whether or not the video will automatically start to play when the player loads (not supported on iOS)."
+                    }
+                  }
+                },
+                "_transcript": {
+                  "type":"object",
+                  "required":false,
+                  "title": "Transcript Options",
+                  "properties":{
+                    "_inlineTranscript": {
+                      "type":"boolean",
+                      "required":false,
+                      "default": false,
+                      "title": "Show Inline",
+                      "inputType": {"type": "Boolean", "options": [true, false]},
+                      "validators": []
+                    },
+                    "inlineTranscriptButton": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Open Transcript",
+                      "title": "Inline Open Button",
+                      "inputType": "Text",
+                      "validators": [],
+                      "translatable": true
+                    },
+                    "inlineTranscriptCloseButton": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Close Transcript",
+                      "title": "Inline Close Button",
+                      "inputType": "Text",
+                      "validators": [],
+                      "translatable": true
+                    },
+                    "inlineTranscriptBody": {
+                      "type":"string",
+                      "required":false,
+                      "default": "",
+                      "title": "Inline Transcript",
+                      "inputType": "TextArea",
+                      "validators": [],
+                      "help": "Optional text appears below the video",
+                      "translatable": true
+                    }
+                  }
                 }
               }
             }

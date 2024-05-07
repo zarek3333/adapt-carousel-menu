@@ -25,7 +25,8 @@ define([
             "click .tooltips6 .skipme": "toolTip",
             'mousemove .firsttileview .carousel-menu-item' : 'firstPGlaunch',
             "mousemove .carousel-menu-item" : "accessibilityOn",
-            "keyup *:focus" : "accessibilityOn"
+            "keyup *:focus" : "accessibilityOn",
+            'click .carousel-course-intro' : 'menunotifyPopup'
         },
 
         postRender: function() {
@@ -34,7 +35,8 @@ define([
 
             this.listenTo(Adapt, {
                 "carouselMenu:setItem": this.setItem,
-                "menuView:ready": this.onReady
+                "menuView:ready": this.onReady,
+                'popup:closed': this.onPopupClosed
             });
 
             this.setBackgroundImage();
@@ -75,18 +77,18 @@ define([
                 }
             }
 
-            window.setTimeout(function(){
-                $(".tooltips6").remove(); 
-            }, 15000);
-
             // Triggers Page 1 when Accessibility button is pressed
             var config = this.model.get("_carouselMenu");
             var launchPGone = config && config._gotoPageone;
 
             if (launchPGone == true) {
                 console.log("CAROUSEL MENU PAGE 1 LAUNCH IS OFF.");
+                this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.onLaunchVideo);
             } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
                 this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo);
+                window.setTimeout(function(){
+                    $(".tooltips6").remove(); 
+                }, 15000);
             }
         },
 
@@ -111,6 +113,20 @@ define([
                     });
                 });
             }
+        },
+
+        onLaunchVideo: function() {
+            if ( !$('.carousel-menu-item-indicator-container .carousel-menu-item').hasClass('visited') ) {
+                this.menunotifyPopup();
+            }
+        },
+
+        onPopupClosed: function() {
+            //on popup closed show tooltip
+            $(".tooltips6").show();
+            window.setTimeout(function(){
+                $(".tooltips6").remove(); 
+            }, 15000);
         },
 
         onControlClick: function(event) {
@@ -230,7 +246,67 @@ define([
                 //DO NOTHING
             }
             
-        }
+        },
+
+        menunotifyPopup: function () {
+            //event.preventDefault();
+            var config = this.model.get("_carouselMenu");
+            var mediaSettings = config && config._media;
+            var transcriptSet = config && config._transcript;
+            var transEnable = transcriptSet._inlineTranscript;
+            var transOpen = transcriptSet.inlineTranscriptButton;
+            var transBody = transcriptSet.inlineTranscriptBody;
+            var mediaSource = mediaSettings._source;
+            var mediaPoster = mediaSettings._poster;
+            var mediaControls = mediaSettings._controls;
+            var mediaScrubber = mediaSettings._scrubber;
+            var mediaCaption = mediaSettings._captiononauto;
+            var mediaFullscreen = mediaSettings._setFullscreen;
+            var mediaAutoplay = mediaSettings._autoplay;
+            var item = this;
+
+            this.model.set('_active', false);
+
+            var titleText = '<iframe tabindex="0" src="assets/azure2.htm?url=//' + mediaSource + '&amp;autoplay=' + mediaAutoplay + '&amp;fullscreen=' + mediaFullscreen + '&amp;controls=' + mediaControls + '&amp;poster=' + mediaPoster + '&amp;scrubber=' + mediaScrubber + '&amp;caponoff=' + mediaCaption + '" id="introVideo" class="tilemenuazure removeazureie azureinviewmode" name="azuremediaplayer-introVideo" scrolling="no" frameborder="no" align="center" height="280px" width="500px" allowfullscreen="" style="width: 1242px; height: 698.538px;"></iframe>';
+
+            if ( transEnable == true) {
+                var bodyText = '<button class="carouselmenu__transcript-btn carousel-menu-item-button" aria-expanded="false">' + transOpen + '</button><div class="transcriptBody" tabindex="-1" style="display:none">' + transBody + '</div>';
+            } else {
+                var bodyText = '';
+            }
+
+            var popupObject = {
+                body: bodyText,
+                title: titleText
+            };
+
+            if ( mediaSource.length == 0) {
+                //no video do nothing!
+            } else {
+                Adapt.notify.popup(popupObject);
+                $(".tooltips6").hide();
+            }
+            $(".carouselmenu__transcript-btn").click(function() {
+               item.menuTranscript();
+            });
+        },
+
+        menuTranscript: function () {
+            var config = this.model.get("_carouselMenu");
+            var transcriptSet = config && config._transcript;
+            var transEnable = transcriptSet._inlineTranscript;
+            var transOpen = transcriptSet.inlineTranscriptButton;
+            var transClose = transcriptSet.inlineTranscriptCloseButton;
+            var transBody = transcriptSet.inlineTranscriptBody;
+
+            if ($('.carouselmenu__transcript-btn[aria-expanded="false"]').is( '[aria-expanded="false"]' ) ) {
+                $('.carouselmenu__transcript-btn[aria-expanded="false"]').attr("aria-expanded","true").text(transClose);
+                $('.transcriptBody').attr('tabindex','0').show();
+            } else if ( $('.carouselmenu__transcript-btn[aria-expanded="true"]').is( '[aria-expanded="true"]' ) ) {
+                $('.carouselmenu__transcript-btn[aria-expanded="true"]').attr("aria-expanded","false").text(transOpen);
+                $('.transcriptBody').attr('tabindex','-1').hide();
+            }
+        }    
 
     }, { template: "carouselMenu" });
 

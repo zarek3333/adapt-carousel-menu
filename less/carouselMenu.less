@@ -456,6 +456,76 @@
         width: 0;
     }
 }
+
+/* AZURE VIDEO COURSE INTRO */
+.location-menu .notify__popup {
+    background-color: #3c454f !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: hidden !important;
+}
+.location-menu .notify__content-inner {
+    display: flex;
+    justify-content: center;
+    align-items: normal;
+    width: 100%;
+    flex-direction: column;
+}
+.location-menu .notify__body, .location-menu .notify__title {
+    margin-top: -20px;
+}
+.location-menu .notify__title {
+    margin-bottom: 60px;
+}
+.location-menu .notify__btn-icon {
+    background-color: #3c454f !important;
+    top: -7px;
+}
+.location-menu .notify__btn-icon:hover {
+    background-color: @black !important;
+    top: -7px;
+}
+.location-menu iframe.tilemenuazure {
+    height: calc(100vh - 64px) !important;
+    max-width: calc(100vw - 40px) !important;
+    width: 133vh !important;
+    margin-bottom: -80px;
+}
+.carouselmenu__transcript-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    flex-wrap: wrap;
+    padding: 5px;
+    font-size: 21px;
+}
+.carouselmenu__transcript-btn[aria-expanded="true"] {
+    color: @item-color;
+    background-color: @item-color-inverted;
+}
+.location-menu .notify__body .transcriptBody {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 43.75% !important;
+    position: absolute;
+    top: 40px;
+    background-color: #3c454f;
+    color: white;
+    padding: 10px 20px;
+    padding-bottom: 56.25%;
+    max-height: 43.75% !important;
+    overflow-y: auto;
+}
+.location-menu .notify__body .transcriptBody:focus {
+    outline: orange !important;
+}
+
 /* IE11 fix for menutooltip */
 *::-ms-backdrop, html:not(.chrome) .menu-tooltip {
     margin-top: -120px;
@@ -587,6 +657,7 @@ _:-ms-lang(x), _:-webkit-full-screen, .tooltips6 { z-index: 511; }
 
 @media all and (max-width:@device-width-medium){
     .tooltips6 {display: none !important;}
+    .location-menu .notify__title {padding-right: 0px;}
     .carousel-menu-item-duration, .carousel-menu-item-button, .carousel-menu-item:not(:first-child) .carousel-menu-item-content:after {
         text-align: center !important;
         display: inline-flex;
