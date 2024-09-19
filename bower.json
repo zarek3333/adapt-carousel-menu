@@ -1,6 +1,6 @@
 {
 	"name": "adapt-carousel-menu",
-	"version": "5.1.3",
+	"version": "5.1.4",
   	"framework": ">=5",
 	"displayName": "Carousel Menu",
 	"menu": "carouselMenu",

@@ -478,6 +478,12 @@
 .location-menu .notify__title {
     margin-bottom: 60px;
 }
+iframe#introVideo {
+    width: 140vh !important;
+    height: calc(100vh - 87px) !important;
+    max-width: 100%;
+    margin-bottom: -40px;
+}
 .location-menu .notify__btn-icon {
     background-color: #3c454f !important;
     top: -7px;
@@ -511,15 +517,15 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
-    width: 100%;
-    height: 43.75% !important;
+    width: calc(100% - 16px);
+    height: calc(100vh - 100px) !important;
     position: absolute;
     top: 40px;
     background-color: #3c454f;
     color: white;
     padding: 10px 20px;
-    padding-bottom: 56.25%;
-    max-height: 43.75% !important;
+    /* padding-bottom: calc(100vh - 106px); */
+    max-height: calc(100vh - 100px) !important;
     overflow-y: auto;
 }
 .location-menu .notify__body .transcriptBody:focus {

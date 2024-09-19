@@ -66,7 +66,7 @@
                         "default": "",
                         "title": "Poster Image (1260 x 709px)",
                         "inputType": "Asset:image",
-                        "validators": ["required"],
+                        "validators": [],
                         "help": "This is where the poster image path is placed."
                     },
                     "_captions": {

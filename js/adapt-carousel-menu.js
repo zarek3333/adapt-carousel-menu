@@ -267,7 +267,7 @@ define([
 
             this.model.set('_active', false);
 
-            var titleText = '<iframe tabindex="0" src="assets/azure2.htm?url=//' + mediaSource + '&amp;autoplay=' + mediaAutoplay + '&amp;fullscreen=' + mediaFullscreen + '&amp;controls=' + mediaControls + '&amp;poster=' + mediaPoster + '&amp;scrubber=' + mediaScrubber + '&amp;caponoff=' + mediaCaption + '" id="introVideo" class="tilemenuazure removeazureie azureinviewmode" name="azuremediaplayer-introVideo" scrolling="no" frameborder="no" align="center" height="280px" width="500px" allowfullscreen="" style="width: 1242px; height: 698.538px;"></iframe>';
+            var titleText = '<iframe tabindex="0" src="assets/azure2.htm?url=//' + mediaSource + '&amp;autoplay=' + mediaAutoplay + '&amp;fullscreen=' + mediaFullscreen + '&amp;controls=' + mediaControls + '&amp;poster=' + mediaPoster + '&amp;scrubber=' + mediaScrubber + '&amp;caponoff=' + mediaCaption + '" id="introVideo" class="removeazureie" name="azuremediaplayer-introVideo" scrolling="no" frameborder="no" align="center" height="280px" width="500px" allowfullscreen="" style="width: 1242px; height: 698.538px;"></iframe>';
 
             if ( transEnable == true) {
                 var bodyText = '<button class="carouselmenu__transcript-btn carousel-menu-item-button" aria-expanded="false">' + transOpen + '</button><div class="transcriptBody" tabindex="-1" style="display:none">' + transBody + '</div>';
