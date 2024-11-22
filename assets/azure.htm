@@ -53,7 +53,7 @@
             .azure-component.component-full .azure-widget .vjs-default-skin {width: 924px !important; height: 520px !important; text-align: center; display: inline-block; position: relative; margin-bottom: -36.25%;}
             .azure-component.component-full .embed-container {padding-bottom: 36.25%;}
         }
-        .nofullmode video::-webkit-media-controls-fullscreen-button, .noscrubber video::-webkit-media-controls-fullscreen-button, .nocontrols video::-webkit-media-controls-fullscreen-button {display: none;}
+    .nofullmode video::-webkit-media-controls-fullscreen-button, .noscrubber video::-webkit-media-controls-fullscreen-button, .nocontrols video::-webkit-media-controls-fullscreen-button {display: none;}
         .noscrubber video::-webkit-media-controls-timeline, .nocontrols video::-webkit-media-controls-timeline {display: none;}
         .noscrubber video::-webkit-media-controls-current-time-display, .nocontrols video::-webkit-media-controls-current-time-display {display: none;}
         .noscrubber video::-webkit-media-controls-time-remaining-display, .nocontrols video::-webkit-media-controls-time-remaining-display {display: none;}
@@ -106,11 +106,11 @@
     <div class="embed-container" id="video-container">
 
       <video id="azuremediaplayer" class="video-js video-js vjs-fluid vjs-default-skin azuremediaplayer" preload="auto" height="100%" width="100%" poster="" style="height: 100% !important; width: 100% !important;" playsInline webkit-playsInline controls controlsList="nodownload noplaybackrate">
-          <source src="" type="application/x-mpegURL"/>
-          <!-- <track srclang="" label="" kind="" src=""> -->
+            <source src="" type="application/x-mpegURL"/>
+            <track srclang="" label="" kind="" src="" />
       </video>
-      
-    </div>
+
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
 //Pushing component variables into iFrame
@@ -121,12 +121,23 @@ const justID = sGUID.replace('azuremediaplayer-','');
 const daPoster = qs("poster");
 this.$('video[name="' + sGUID + '"]').attr('poster','../' + daPoster);
 
-
-
 //CAPTIONS SPLITTING
 const sCap = qs("captions");
 const sKind = qs("kind");
+this.$('video[name="' + sGUID + '"] track').attr('kind', sKind);
+const arrayCap = sCap.split(",");
+const sCaplabel = arrayCap[0];
+this.$('video[name="' + sGUID + '"] track').attr('label', sCaplabel);
+const sCaplang = arrayCap[1];
+this.$('video[name="' + sGUID + '"] track').attr('srclang', sCaplang);
+const sCapsrc = arrayCap[2];
+this.$('video[name="' + sGUID + '"] track').attr('src', sCapsrc);
 const daCaponoff = qs("caponoff");
+if(daCaponoff === "true" ){
+  //do nothing
+} else {
+  this.$('video[name="' + sGUID + '"] track').prop("default","true");
+}
 
 //CONTROLS ON/OFF
 const daControls = qs("controls"); //== "true" ? true : false;
@@ -204,7 +215,7 @@ $(".embed-container.nocontrols").bind('keypress', function(e) {
 const video = document.querySelector('[name="' + window.name + '"]');
 video.addEventListener("play", (event) => {
   console.log("Video has started! " + window.name);
-    $('#wrapper iframe[src="assets/azure2.htm?url=' + sVidUrl + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-has-started').addClass('vjs-playing');
+    $('#wrapper iframe[src="assets/azure.htm?url=' + sVidUrl + '&captions=' + sCap + '&kind=' + sKind + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-has-started').addClass('vjs-playing');
     $('#wrapper div[data-adapt-id="' + justID + '"] #' + justID + '.audio-toggle.audio-pause:not(.audio-play)', window.parent.document).trigger("click");
 });
 
@@ -212,14 +223,14 @@ video.addEventListener("play", (event) => {
 const video1 = document.querySelector('[name="' + window.name + '"]');
 video1.addEventListener("pause", (event) => {
   console.log("Video has paused! " + window.name);
-    $('#wrapper iframe[src="assets/azure2.htm?url=' + sVidUrl + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-paused');
+    $('#wrapper iframe[src="assets/azure.htm?url=' + sVidUrl + '&captions=' + sCap + '&kind=' + sKind + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-paused');
 });
 
 /* ON ENDED TRIGGER */
 const video2 = document.querySelector('[name="' + window.name + '"]');
 video2.addEventListener("ended", (event) => {
   console.log("Video has ended! " + window.name);
-    $('#wrapper iframe[src="assets/azure2.htm?url=' + sVidUrl + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-ended');
+    $('#wrapper iframe[src="assets/azure.htm?url=' + sVidUrl + '&captions=' + sCap + '&kind=' + sKind + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-ended');
 });
 
 /* MOBILE TRIGGERS ON PLAY OR ENDED */
@@ -228,7 +239,7 @@ $(document).bind('touchstart', function(e) {
     ts = e.originalEvent.touches[0].clientY;
     if ($('.azuremediaplayer[name="' + window.name + '"]').hasClass('vjs-touch-enabled')) {
         console.log("MOBILE Video has started! " + window.name);
-        $('#wrapper iframe[src="assets/azure2.htm?url=' + sVidUrl + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-has-started').addClass('vjs-playing');
+        $('#wrapper iframe[src="assets/azure.htm?url=' + sVidUrl + '&captions=' + sCap + '&kind=' + sKind + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-has-started').addClass('vjs-playing');
         $('#wrapper div[data-adapt-id="' + justID + '"] #' + justID + '.audio-toggle.audio-pause:not(.audio-play)', window.parent.document).trigger("click");
     }
 });
@@ -239,7 +250,7 @@ $(document).bind('touchmove', function(e) {
         /* TOUCH DOWN */
         if ($('.azuremediaplayer.vjs-touch-enabled[name="' + window.name + '"]:not(.apinoended)').hasClass('vjs-ended')) {
             $('.azuremediaplayer.vjs-touch-enabled.vjs-ended[name="' + window.name + '"]').addClass('apinoended');
-            $('#wrapper iframe[src="assets/azure2.htm?url=' + sVidUrl + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-ended');
+            $('#wrapper iframe[src="assets/azure.htm?url=' + sVidUrl + '&captions=' + sCap + '&kind=' + sKind + '&autoplay=' + daAutoplay + '&fullscreen=' + daFullscreen + '&controls=' + daControls + '&poster=' + daPoster + '&scrubber=' + daScrubber + '&caponoff=' + daCaponoff + '"]', window.parent.document).removeClass('vjs-paused').removeClass('vjs-has-started').removeClass('vjs-playing').addClass('vjs-ended');
         }
     } else {
         /* TOUCH UP */
