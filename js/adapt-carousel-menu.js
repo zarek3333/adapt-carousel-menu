@@ -36,7 +36,8 @@ define([
             this.listenTo(Adapt, {
                 "carouselMenu:setItem": this.setItem,
                 "menuView:ready": this.onReady,
-                'popup:closed': this.onPopupClosed
+                "popup:closed": this.onPopupClosed,
+                "notify:closed": this.notifyClosed
             });
 
             this.setBackgroundImage();
@@ -288,6 +289,14 @@ define([
             }
             $(".carouselmenu__transcript-btn").click(function() {
                item.menuTranscript();
+            });
+        },
+
+        notifyClosed: function() {
+            this.navigateTo();
+            this.listenToOnce(Adapt, {
+                'remove': this._onRemove,
+                'router:menu router:page': this.navigateTo
             });
         },
 
