@@ -60,6 +60,26 @@ define([
                 var courseholder = Adapt.offlineStorage.get("mycourseTitle");
             }
 
+            var getUrlParameter = function getUrlParameter(sParam) { 
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+                for (i = 0; i < sURLVariables.length; i++) { 
+                    sParameterName = sURLVariables[i].split('='); 
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                };
+            };
+            var menulaunch = getUrlParameter('menulaunch');
+            
+            if(menulaunch == 'on'){
+                $('html#adapt').addClass('menulaunch');
+            } else {
+                //Don't launch to menu respect page 1 launch
+            }
+
             // Triggers Page 1 when Accessibility button is pressed
             if ($('.location-menu').hasClass('accessibility')) {
                 // Checks if you are on Main Menu or Sub Menu
@@ -76,6 +96,8 @@ define([
                         }, 250);
                     }, 250);
                 }
+            } else if ($('html#adapt').hasClass('menulaunch')) {
+                //Don't launch to menu respect page 1 launch
             }
 
             // Triggers Page 1 when Accessibility button is pressed
@@ -85,7 +107,7 @@ define([
             if (launchPGone == true) {
                 console.log("CAROUSEL MENU PAGE 1 LAUNCH IS OFF.");
                 this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.onLaunchVideo);
-            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
+            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility') || !$('html#adapt').hasClass('menulaunch')) {
                 this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo);
                 window.setTimeout(function(){
                     $(".tooltips6").remove(); 
@@ -212,7 +234,9 @@ define([
         firstPGlaunch: function() {
             if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
                 // Checks if you are on Main Menu or Sub Menu
-                if ($('.nav__back-btn').hasClass('u-display-none')) {
+                if ($('html#adapt').addClass('menulaunch')) {
+                    //Don't launch to menu respect page 1 launch
+                } else if ($('.nav__back-btn').hasClass('u-display-none')) {
                     $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
                 } else {
                     //Do Nothing on SUB Menu
@@ -225,7 +249,7 @@ define([
 
         navigateTo: function() {
             if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
-                if( $('.navpagenum:empty').length ) {
+                if( $('.navpagenum:empty').length) {
                     window.setTimeout(function(){
                         console.log("1st view of CAROUSEL MENU.");
                         $( '.carousel-menu[data-item-index="1"] .carousel-menu-item-container .carousel-menu-item:nth-child(2) .carousel-menu-item-button' ).trigger( 'click' );
