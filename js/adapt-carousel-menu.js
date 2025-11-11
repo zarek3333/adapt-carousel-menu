@@ -74,7 +74,7 @@ define([
             };
             var menulaunch = getUrlParameter('menulaunch');
             
-            if(menulaunch == 'on'){
+            if(!menulaunch == ''){
                 $('html#adapt').addClass('menulaunch');
             } else {
                 //Don't launch to menu respect page 1 launch
