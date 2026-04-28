@@ -246,6 +246,14 @@ define([
                 }
             } else {
                 //Do nothing
+                window.setTimeout(function(){
+                    if ($('#timer').is(':contains("00:00:00")')) {
+                         console.log("TIMER IS 00:00:00");
+                         $('.carousel-menu-item:last-child').removeClass('locked');
+                         $('.carousel-menu-item:last-child .carousel-menu-item-button').removeClass('is-disabled').prop( "disabled", false );
+                         $('.menu-tile-items .menu-item:last-child .menu-item-button .viewtext').removeClass('is-disabled').prop( "disabled", false );
+                    }
+                }, 555);
             } 
         },
 
@@ -264,6 +272,14 @@ define([
                 }
             } else {
                 //Do nothing
+                window.setTimeout(function(){
+                    if ($('#timer').is(':contains("00:00:00")')) {
+                         console.log("TIMER IS 00:00:00");
+                         $('.carousel-menu-item:last-child').removeClass('locked');
+                         $('.carousel-menu-item:last-child .carousel-menu-item-button').removeClass('is-disabled').prop( "disabled", false );
+                         $('.menu-tile-items .menu-item:last-child .menu-item-button .viewtext').removeClass('is-disabled').prop( "disabled", false );
+                    }
+                }, 555);
             }  
         },
 
